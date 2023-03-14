@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "pinia": "^2.0.32",
+    "swiper": "^7.0.0-alpha.40",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
