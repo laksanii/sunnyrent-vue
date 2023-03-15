@@ -19,20 +19,20 @@ import { RouterLink } from 'vue-router'
                 <div class="collapse navbar-collapse navbar-box" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-lg-0 px-2">
                         <li class="nav-item me-3 bg-white">
-                            <span class="ps-3 nav-link d-flex align-items-center active-nav" aria-current="page"
-                                id="span-home">Home</span>
+                            <router-link to="#hero" class="ps-3 nav-link d-flex align-items-center active-nav"
+                                aria-current="page" id="span-home">Home</router-link>
                         </li>
                         <li class="nav-item me-3 bg-white">
                             <router-link to="#form" class="ps-3 nav-link d-flex align-items-center"
                                 id="span-form">Rent</router-link>
                         </li>
                         <li class="nav-item me-3 bg-white">
-                            <span class="ps-3 nav-link d-flex align-items-center" id="span-check">Cek
-                                Order</span>
+                            <router-link to="#check" class="ps-3 nav-link d-flex align-items-center" id="span-check">Cek
+                                Order</router-link>
                         </li>
                         <li class="nav-item me-3">
-                            <span class="ps-3 nav-link d-flex align-items-center bg-white"
-                                id="span-return">Pengembalian</span>
+                            <router-link to="#return" class="ps-3 nav-link d-flex align-items-center bg-white"
+                                id="span-return">Pengembalian</router-link>
                         </li>
                     </ul>
                 </div>

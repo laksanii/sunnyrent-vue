@@ -21,18 +21,5 @@ export const useCostumeStore = defineStore({
         this.costume = false;
       }
     },
-    async fetchCostume(id) {
-      try {
-        const { data } = await axios.get(
-          "http://www.sunnycosrent-backend.test/api/costume?id=" + id
-        );
-        this.costumeDetail = data;
-
-        return this.costumeDetail;
-      } catch (error) {
-        this.costumeDetail = false;
-        return this.costumeDetail;
-      }
-    },
   },
 });
