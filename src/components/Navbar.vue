@@ -1,3 +1,7 @@
+<script setup>
+import { RouterLink } from 'vue-router'
+</script>
+
 <template>
     <div>
         <nav class="navbar navbar-expand-lg bg-white shadow-sm p-0 fixed-top">
@@ -19,7 +23,8 @@
                                 id="span-home">Home</span>
                         </li>
                         <li class="nav-item me-3 bg-white">
-                            <span class="ps-3 nav-link d-flex align-items-center" id="span-form">Rent</span>
+                            <router-link to="#form" class="ps-3 nav-link d-flex align-items-center"
+                                id="span-form">Rent</router-link>
                         </li>
                         <li class="nav-item me-3 bg-white">
                             <span class="ps-3 nav-link d-flex align-items-center" id="span-check">Cek

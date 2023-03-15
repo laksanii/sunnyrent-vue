@@ -13068,6 +13068,15 @@ body {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.preview-img{
+  height: 200px;
+}
+
+.preview-img img{
+  height: 100%;
+  object-fit: contain;
+}
+
 .section {
   padding-top: 85px;
   padding-bottom: 30px;
