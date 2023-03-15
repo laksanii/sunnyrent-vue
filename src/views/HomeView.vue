@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar.vue"
 import Hero from "@/components/Hero.vue"
 import Form from "@/components/Form.vue"
 import Check from "@/components/Check.vue"
+import Return from "@/components/Return.vue"
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import Check from "@/components/Check.vue"
     <Navbar />
     <Hero />
     <Form />
-    <check />
+    <Check />
+    <Return />
   </div>
 </template>
