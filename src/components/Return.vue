@@ -16,6 +16,11 @@ function onFileChange(event) {
   reader.readAsDataURL(files[0]);
 }
 
+function closePreview(e) {
+  preview.value = false
+  document.getElementById('return_pict').value = ''
+}
+
 function submitForm(e) {
   // const formEl = document.getElementById("");
   const formData = new FormData(e.target)
@@ -81,6 +86,7 @@ function submitForm(e) {
                   required />
                 <div v-if="preview" class="preview-img text-center p-2 mt-2">
                   <img :src="preview" class="img-fluid" />
+                  <button class="btn-close" @click="closePreview"></button>
                 </div>
               </div>
               <div class="submit text-center mt-4">

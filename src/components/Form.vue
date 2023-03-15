@@ -58,6 +58,11 @@ function onChange(e, price) {
     }
 }
 
+function closePreview(e, id) {
+    preview[id].value = false
+    document.getElementById(id).value = ''
+}
+
 function onFileChange(event, id) {
     const files = event.target.files
     if (!files.length) return false;
@@ -211,6 +216,7 @@ function submitForm(e) {
                                     id="KTP_pict" name="KTP_pict" />
                                 <div v-if="preview.KTP_pict.value" class="preview-img text-center mt-2">
                                     <img :src="preview.KTP_pict.value" class="img-fluid" />
+                                    <button class="btn-close" @click="closePreview($event, 'KTP_pict')"></button>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -219,6 +225,7 @@ function submitForm(e) {
                                     id="KTP_selfie" name="KTP_selfie" />
                                 <div v-if="preview.KTP_selfie.value" class="preview-img text-center p-2 mt-2">
                                     <img :src="preview.KTP_selfie.value" class="img-fluid" />
+                                    <button class="btn-close" @click="closePreview($event, 'KTP_selfie')"></button>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -227,6 +234,7 @@ function submitForm(e) {
                                     id="payment_pict" name="payment_pict" />
                                 <div v-if="preview.payment_pict.value" class="preview-img text-center p-2 mt-2">
                                     <img :src="preview.payment_pict.value" class="img-fluid" />
+                                    <button class="btn-close" @click="closePreview($event, 'payment_pict')"></button>
                                 </div>
                             </div>
                             <div class="submit text-center mt-4">
