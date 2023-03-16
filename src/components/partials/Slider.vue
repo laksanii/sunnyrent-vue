@@ -1,5 +1,5 @@
 <template>
-    <swiper class="mySwiper" :loop="true" :clickable="true" :slidesPerView="1" :spaceBetween="30" :breakpoints="{
+    <swiper class="mySwiper" :rewind="true" :clickable="true" :slidesPerView="1" :spaceBetween="30" :breakpoints="{
         '576': {
             slidesPerView: 1,
             spaceBetween: 10,
@@ -35,10 +35,19 @@
             <img src="@/assets/images/nilou.jpg" alt="gura" />
         </swiper-slide>
         <swiper-slide>
-            <img src="@/assets/images/gawr_gura.jpg" alt="gura" />
+            <img src="@/assets/images/keqing_cheongsam.jpg" alt="gura" />
         </swiper-slide>
         <swiper-slide>
-            <img src="@/assets/images/kobo_kanaeru.jpg" alt="gura" />
+            <img src="@/assets/images/mona.jpg" alt="gura" />
+        </swiper-slide>
+        <swiper-slide>
+            <img src="@/assets/images/raiden_shogun.jpg" alt="gura" />
+        </swiper-slide>
+        <swiper-slide>
+            <img src="@/assets/images/yae_miko.jpg" alt="gura" />
+        </swiper-slide>
+        <swiper-slide>
+            <img src="@/assets/images/yor_forger.jpg" alt="gura" />
         </swiper-slide>
     </swiper>
 </template>

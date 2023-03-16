@@ -1,70 +1,115 @@
 <script setup>
 import { ref, onMounted, onUpdated, computed } from "vue";
-import { useCostumeStore } from "@/stores/costume"
-import axios from 'axios'
-import VueSelect from "vue-select"
+import { useCostumeStore } from "@/stores/costume";
+import axios from "axios";
+import VueSelect from "vue-select";
 
-import 'vue-select/dist/vue-select.css'
+import "vue-select/dist/vue-select.css";
 
 // Costume
-let alreadySelect = ref(false)
-let costumeDetail = ref(false)
+let alreadySelect = ref(false);
+let costumeDetail = ref(false);
 
-const costumeStore = useCostumeStore()
-const costumes = computed(() => costumeStore.getCostumes)
-const costumeList = computed(() => costumes.value.result)
+const costumeStore = useCostumeStore();
+const costumes = computed(() => costumeStore.getCostumes);
+const costumeList = computed(() => costumes.value.result);
 
 async function onSelected(costume) {
-    costume_id.value = costume.id
-    alreadySelect.value = true
-    costumeDetail.value = computed(() => costumeList.value.find(cost => cost.id == costume.id))
-    accessories.value = []
-    total_payment.value = costumeDetail.value.value.price
-
+    costume_id.value = costume.id;
+    alreadySelect.value = true;
+    costumeDetail.value = computed(() =>
+        costumeList.value.find((cost) => cost.id == costume.id)
+    );
+    accessories.value = [];
+    total_payment.value = costumeDetail.value.value.price;
 }
 
 onMounted(() => {
-    costumeStore.fetchCostumes()
-})
+    costumeStore.fetchCostumes();
+});
 
-onUpdated(() => {
-})
+onUpdated(() => { });
 
-const costume_id = ref('')
-const accessories = ref([])
-const total_payment = ref(0)
-const error_msg = ref([])
-const success_msg = ref(false)
+const costume_id = ref("");
+const accessories = ref([]);
+const total_payment = ref(0);
+const error_msg = ref([]);
+const success_msg = ref(false);
+const available = ref(null);
+const error_check = ref(null);
 
 const preview = {
-    'KTP_pict': ref(false),
-    'KTP_selfie': ref(false),
-    'payment_pict': ref(false)
-}
+    KTP_pict: ref(false),
+    KTP_selfie: ref(false),
+    payment_pict: ref(false),
+};
 
 function clearError() {
-    error_msg.value = []
+    error_msg.value = [];
 }
 
 function clearSuccess() {
-    success_msg.value = false
+    success_msg.value = false;
+}
+
+function clearErrorCheck() {
+    error_check.value = null;
 }
 
 function onChange(e, price) {
     if (e.target.checked) {
-        total_payment.value = +total_payment.value + +price
+        total_payment.value = +total_payment.value + +price;
     } else {
-        total_payment.value = +total_payment.value - +price
+        total_payment.value = +total_payment.value - +price;
     }
 }
 
+function openPicker(e) {
+    e.target.showPicker();
+}
+
+function costumeCheck(e) {
+    // alert(e.target.value)
+    const date = e.target.value;
+    if (costume_id.value == "") {
+        alert("Pilih kostum dulu");
+        e.target.value = "";
+        return;
+    }
+
+    if (date == "") {
+        available.value = null;
+        return;
+    }
+
+    axios({
+        method: "get",
+        url:
+            "http://www.sunnycosrent-backend.test/api/order/costume-check?costume_id=" +
+            costume_id.value +
+            "&rent_date=" +
+            date,
+        headers: { "Content-Type": "multipart/form-data" },
+    })
+        .then(function (response) {
+            //handle success\
+            available.value = response.data.result;
+        })
+        .catch(function (response) {
+            //handle error
+            error_check.value = "Terjadi kesalahan";
+        });
+
+    axios;
+}
+
 function closePreview(e, id) {
-    preview[id].value = false
-    document.getElementById(id).value = ''
+    preview[id].value = false;
+    document.getElementById(id).value = "";
 }
 
 function onFileChange(event, id) {
-    const files = event.target.files
+    const files = event.target.files;
     if (!files.length) return false;
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -74,9 +119,9 @@ function onFileChange(event, id) {
 }
 
 function submitForm(e) {
-    clearError()
+    clearError();
     const formEl = document.getElementById("form");
-    const formData = new FormData(e.target)
+    const formData = new FormData(e.target);
     axios({
         method: "post",
         url: "http://www.sunnycosrent-backend.test/api/order",
@@ -85,27 +130,25 @@ function submitForm(e) {
     })
         .then(function (response) {
             //handle success
-            e.target.reset()
-            total_payment.value = 0
-            preview.KTP_pict.value = false
-            preview.KTP_selfie.value = false
-            preview.payment_pict.value = false
-            const codeBook = response.data.result.code
-            success_msg.value = 'Kostum berhasil dibook simpan kode booknya ya: ' + codeBook
-            formEl.scrollIntoView()
-
+            e.target.reset();
+            total_payment.value = 0;
+            preview.KTP_pict.value = false;
+            preview.KTP_selfie.value = false;
+            preview.payment_pict.value = false;
+            const codeBook = response.data.result.code;
+            success_msg.value =
+                "Kostum berhasil dibook simpan kode booknya ya: " + codeBook;
+            formEl.scrollIntoView();
         })
         .catch(function (response) {
             //handle error
-            const errors = response.response.data.errors
+            const errors = response.response.data.errors;
 
             for (let key in errors) {
-                error_msg.value.push(errors[key][0])
-                formEl.scrollIntoView()
+                error_msg.value.push(errors[key][0]);
+                formEl.scrollIntoView();
             }
-
         });
-
 }
 </script>
 
@@ -117,6 +160,12 @@ function submitForm(e) {
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-12">
                         <form @submit.prevent="submitForm">
+                            <div v-if="error_check != null" class="alert alert-warning alert-dismissible fade show"
+                                role="alert">
+                                {{ error_check }}
+                                <button type="button" @click="clearErrorCheck" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
                             <div v-if="error_msg.length" class="alert alert-warning alert-dismissible fade show"
                                 role="alert">
                                 <div v-for="msg in error_msg">
@@ -137,11 +186,11 @@ function submitForm(e) {
                                 <label for="costume_id" class="form-label">Kostum Karakter
                                 </label>
                                 <VueSelect v-if="costumes" v-model="costume_id" :options="costumeList" :clearable="false"
-                                    :reduce="costume => costume.id" @option:selected="(costume) => onSelected(costume)"
+                                    :reduce="(costume) => costume.id" @option:selected="(costume) => onSelected(costume)"
                                     label="name" class="form-control p-0" placeholder="Pilih karakter">
                                 </VueSelect>
                             </div>
-                            <input type="text" name="costume_id" hidden :value="costume_id">
+                            <input type="text" name="costume_id" hidden :value="costume_id" />
                             <div class="mb-3">
                                 <label for="accessories">Tambahan aksesoris</label>
                                 <div v-if="alreadySelect">
@@ -158,14 +207,26 @@ function submitForm(e) {
                             </div>
                             <div class="mb-3">
                                 <label for="rent_date" class="form-label">Tanggal Sewa Kostum (Kostum dipakai)</label>
-                                <input type="date" class="form-control" id="rent_date" name="rent_date" />
+                                <input type="date" class="form-control" id="rent_date" name="rent_date" @click="openPicker"
+                                    @change="costumeCheck" />
+                                <div v-if="available != null" class="mt-3 ps-2 fw-bold fs-5"
+                                    :class="available ? 'text-success' : 'text-danger'">
+
+                                    {{
+                                        available
+                                        ? "Kostum available"
+                                        : "Kostum sudah dibook ditangal ini, pilih tanggal / kostum lain"
+                                    }}
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="ship_date" class="form-label">Tanggal Pengiriman Kostum</label>
-                                <input type="date" class="form-control" id="ship_date" name="ship_date" />
+                                <input type="date" class="form-control" id="ship_date" name="ship_date"
+                                    @click="openPicker" />
                             </div>
                             <div class="mb-3">
-                                <label for="DP" class="form-label">Total DP yang dibayar (minimal 50k) </label>
+                                <label for="DP" class="form-label">Total DP yang dibayar (minimal 50k)
+                                </label>
                                 <input type="text" class="form-control" id="DP" name="DP" />
                             </div>
                             <div class="mb-3">
