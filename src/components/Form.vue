@@ -85,7 +85,7 @@ function costumeCheck(e) {
     axios({
         method: "get",
         url:
-            "http://www.sunnycosrent-backend.test/api/order/costume-check?costume_id=" +
+            "https://sunnycos-rent.my.id/api/order/costume-check?costume_id=" +
             costume_id.value +
             "&rent_date=" +
             date,
@@ -124,7 +124,7 @@ function submitForm(e) {
     const formData = new FormData(e.target);
     axios({
         method: "post",
-        url: "http://www.sunnycosrent-backend.test/api/order",
+        url: "https://sunnycos-rent.my.id/api/order",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
     })
@@ -135,6 +135,7 @@ function submitForm(e) {
             preview.KTP_pict.value = false;
             preview.KTP_selfie.value = false;
             preview.payment_pict.value = false;
+            available.value = null;
             const codeBook = response.data.result.code;
             success_msg.value =
                 "Kostum berhasil dibook simpan kode booknya ya: " + codeBook;

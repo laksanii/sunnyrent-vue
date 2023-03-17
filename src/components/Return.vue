@@ -26,7 +26,7 @@ function submitForm(e) {
   const formData = new FormData(e.target)
   axios({
     method: "post",
-    url: "http://www.sunnycosrent-backend.test/api/order/return",
+    url: "https://sunnycos-rent.my.id/api/order/return",
     data: formData,
     headers: { "Content-Type": "multipart/form-data" },
   })

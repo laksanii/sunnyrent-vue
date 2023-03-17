@@ -14,7 +14,7 @@ import Slider from "@/components/partials/Slider.vue"
                             Rental di Sunnycos-Rent punya katalog kostum lebih dari 60 katalog
                             dan punya 90 lebih kostum
                         </h5>
-                        <a href="" class="btn btn-primary btn-rent rounded-pill">Rental Sekarang</a>
+                        <router-link to="#form" class="btn btn-primary btn-rent rounded-pill">Rental Sekarang</router-link>
                     </div>
                 </div>
                 <Slider />

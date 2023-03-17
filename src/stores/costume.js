@@ -14,7 +14,7 @@ export const useCostumeStore = defineStore({
     async fetchCostumes() {
       try {
         const { data } = await axios.get(
-          "http://www.sunnycosrent-backend.test/api/costume?all=true"
+          "https://sunnycos-rent.my.id/api/costume?all=true"
         );
         this.costume = data;
       } catch (error) {

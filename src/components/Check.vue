@@ -11,18 +11,15 @@ const notFound = ref(false)
 async function submitForm(e) {
   try {
     const { data } = await axios.get(
-      "http://www.sunnycosrent-backend.test/api/order/" + codeBook.value
+      "https://sunnycos-rent.my.id/api/order/" + codeBook.value
     );
     order.value = data.result;
     found.value = true
     notFound.value = false
-    console.log('fetched')
-    console.log(data)
   } catch (error) {
     order.value = false;
     notFound.value = true
     found.value = false
-    console.log('not found')
   }
 }
 
