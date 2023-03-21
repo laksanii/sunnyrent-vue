@@ -23,6 +23,7 @@ async function submitForm(e) {
     order.value = false;
     notFound.value = true
     found.value = false
+    loading.value = false;
   }
 }
 
