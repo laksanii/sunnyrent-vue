@@ -9,6 +9,7 @@ import "vue-select/dist/vue-select.css";
 // Costume
 let alreadySelect = ref(false);
 let costumeDetail = ref(false);
+const loading = ref(false);
 
 const costumeStore = useCostumeStore();
 const costumes = computed(() => costumeStore.getCostumes);
@@ -120,6 +121,7 @@ function onFileChange(event, id) {
 
 function submitForm(e) {
     clearError();
+    loading.value = true
     const formEl = document.getElementById("form");
     const formData = new FormData(e.target);
     axios({
@@ -149,6 +151,8 @@ function submitForm(e) {
                 error_msg.value.push(errors[key][0]);
                 formEl.scrollIntoView();
             }
+        }).finally(() => {
+            loading.value = false;
         });
 }
 </script>
@@ -300,8 +304,12 @@ function submitForm(e) {
                                 </div>
                             </div>
                             <div class="submit text-center mt-4">
-                                <button type="submit"
-                                    class="btn w-75 btn-primary rounded-pill px-4 py-2 border border-dark fw-semibold">
+                                <button disabled v-if="loading"
+                                    class="btn w-75 btn-primary rounded-pill px-4 py-2 border border-dark fw-semibold form-submit">
+                                    <div class="lds-dual-ring"></div>
+                                </button>
+                                <button type="submit" v-else
+                                    class="btn w-75 btn-primary rounded-pill px-4 py-2 border border-dark fw-semibold form-submit">
                                     Rental
                                 </button>
                             </div>

@@ -5,6 +5,7 @@ import axios from 'axios'
 const success_msg = ref(false)
 const error_msg = ref(false)
 const preview = ref(false)
+const loading = ref(false)
 
 function onFileChange(event) {
   const files = event.target.files
@@ -23,6 +24,7 @@ function closePreview(e) {
 
 function submitForm(e) {
   // const formEl = document.getElementById("");
+  loading.value = true
   const formData = new FormData(e.target)
   axios({
     method: "post",
@@ -44,6 +46,8 @@ function submitForm(e) {
       success_msg.value = false
       error_msg.value = 'Data pengembalian kostum gagal dikirim'
 
+    }).finally(() => {
+      loading.value = false;
     });
 }
 </script>
@@ -90,7 +94,12 @@ function submitForm(e) {
                 </div>
               </div>
               <div class="submit text-center mt-4">
-                <button type="submit" class="btn w-75 btn-primary rounded-pill px-4 py-2 border border-dark fw-semibold">
+                <button disabled v-if="loading"
+                  class="btn w-75 btn-primary rounded-pill px-4 py-2 border border-dark fw-semibold form-submit">
+                  <div class="lds-dual-ring"></div>
+                </button>
+                <button type="submit" v-else
+                  class="btn w-75 btn-primary rounded-pill px-4 py-2 border border-dark fw-semibold form-submit">
                   Kembalikan
                 </button>
               </div>

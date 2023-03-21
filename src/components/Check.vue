@@ -7,12 +7,15 @@ const codeBook = ref()
 const order = ref()
 const found = ref(false)
 const notFound = ref(false)
+const loading = ref(false);
 
 async function submitForm(e) {
   try {
+    loading.value = true
     const { data } = await axios.get(
       "https://sunnycos-rent.my.id/api/order/" + codeBook.value
     );
+    loading.value = false
     order.value = data.result;
     found.value = true
     notFound.value = false
@@ -62,6 +65,8 @@ function clearNotFound() {
                 aria-label="Close"></button>
             </div>
           </div>
+          <div class="lds-dual-ring text-center mb-3" v-if="loading"></div>
+
           <div v-if="order" class="check-result">
             <div class="result-container">
               <div class="field d-flex mb-1 bg-primary rounded gap-1">
