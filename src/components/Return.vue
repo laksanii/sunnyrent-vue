@@ -4,23 +4,7 @@ import axios from 'axios'
 
 const success_msg = ref(false)
 const error_msg = ref(false)
-const preview = ref(false)
 const loading = ref(false)
-
-function onFileChange(event) {
-  const files = event.target.files
-  if (!files.length) return false;
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    preview.value = e.target.result;
-  };
-  reader.readAsDataURL(files[0]);
-}
-
-function closePreview(e) {
-  preview.value = false
-  document.getElementById('return_pict').value = ''
-}
 
 function submitForm(e) {
   // const formEl = document.getElementById("");
@@ -54,7 +38,7 @@ function submitForm(e) {
 
 <template>
   <div>
-    <section class="section bg-page" id="return">
+    <section class="section bg-white" id="return">
       <div class="container">
         <h3 class="text-center mb-4">Form Pengembalian</h3>
         <div class="row justify-content-center">
@@ -86,12 +70,7 @@ function submitForm(e) {
               <div class="mb-3">
                 <label for="return_pict" class="form-label">Foto Bukti Pengembalian Paket/Screenshoot
                   Aplikasi</label>
-                <input @change="onFileChange($event)" class="form-control" type="file" id="return_pict" name="return_pict"
-                  required />
-                <div v-if="preview" class="preview-img text-center p-2 mt-2">
-                  <img :src="preview" class="img-fluid" />
-                  <button class="btn-close" @click="closePreview"></button>
-                </div>
+                <input class="form-control" type="file" id="return_pict" name="return_pict[]" required multiple />
               </div>
               <div class="submit text-center mt-4">
                 <button disabled v-if="loading"

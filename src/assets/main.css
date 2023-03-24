@@ -13099,6 +13099,10 @@ section#form{
   }
 }
 
+#confirm{
+  padding-top: 150px;
+}
+
 #return {
   padding-top: 150px;
   min-height: 100vh;

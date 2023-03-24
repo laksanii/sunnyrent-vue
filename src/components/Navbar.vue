@@ -31,6 +31,10 @@ import { RouterLink } from 'vue-router'
                                 Order</router-link>
                         </li>
                         <li class="nav-item me-3">
+                            <router-link to="#confirm" class="ps-3 nav-link d-flex align-items-center bg-white"
+                                id="span-return">Konfirmasi</router-link>
+                        </li>
+                        <li class="nav-item me-3">
                             <router-link to="#return" class="ps-3 nav-link d-flex align-items-center bg-white"
                                 id="span-return">Pengembalian</router-link>
                         </li>

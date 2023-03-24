@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar.vue"
 import Hero from "@/components/Hero.vue"
 import Form from "@/components/Form.vue"
 import Check from "@/components/Check.vue"
+import Confirm from "../components/Confirm.vue"
 import Return from "@/components/Return.vue"
 import Footer from "@/components/Footer.vue"
 </script>
@@ -13,6 +14,7 @@ import Footer from "@/components/Footer.vue"
     <Hero />
     <Form />
     <Check />
+    <Confirm />
     <Return />
     <Footer />
   </div>
