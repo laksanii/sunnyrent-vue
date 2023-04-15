@@ -13143,3 +13143,14 @@ footer .footer-nav span {
 .form-submit{
   height: 40px;
 }
+
+.pop-up{
+  width: 800px;
+  height: 800px;
+  z-index: 9999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  ;
+}
