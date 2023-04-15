@@ -24,6 +24,9 @@ library.add([faWhatsapp, faInstagram, faFacebookF])
               <router-link to="#check" class="fs-5 text-decoration-none ">Cek Order</router-link>
             </div>
             <div class="footer-nav mb-1">
+              <router-link to="#confirm" class="fs-5 text-decoration-none ">Konfirmasi</router-link>
+            </div>
+            <div class="footer-nav mb-1">
               <router-link to="#return" class="fs-5 text-decoration-none ">Pengembalian</router-link>
             </div>
           </div>
