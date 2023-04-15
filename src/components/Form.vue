@@ -196,6 +196,30 @@ function submitForm(e) {
                                 </VueSelect>
                             </div>
                             <input type="text" name="costume_id" hidden :value="costume_id" />
+                            <div v-if="alreadySelect" class="mb-3">
+                                <label for="detailCostume">Detail</label>
+                                <div class="row">
+                                    <label for="staticEmail" class="col-sm-2 col-2 col-form-label">Size</label>
+                                    <div class="col-sm-10 col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                            :value="costumeDetail.value.sizes">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="staticEmail" class="col-sm-2 col-2 col-form-label">LD</label>
+                                    <div class="col-sm-10 col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                            :value="costumeDetail.value.ld">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="staticEmail" class="col-sm-2 col-2 col-form-label">LP</label>
+                                    <div class="col-sm-10 col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                            :value="costumeDetail.value.lp">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="mb-3">
                                 <label for="accessories">Tambahan aksesoris</label>
                                 <div v-if="alreadySelect">

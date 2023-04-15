@@ -39,7 +39,7 @@ function submitForm(e) {
     <div>
         <section class="section min-vh-100 bg-page" id="confirm">
             <div class="container">
-                <h3 class="text-center mb-4">Form Konfirmasi</h3>
+                <h3 class="text-center mb-4">Form Konfirmasi Diterima</h3>
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-12">
                         <form @submit.prevent="submitForm" id="returnForm">
