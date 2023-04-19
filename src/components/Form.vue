@@ -149,8 +149,12 @@ function submitForm(e) {
 
             for (let key in errors) {
                 error_msg.value.push(errors[key][0]);
-                formEl.scrollIntoView();
             }
+
+            if (error_msg.value.length < 1) {
+                error_msg.value.push(response.response.data.meta.message);
+            }
+            formEl.scrollIntoView();
         }).finally(() => {
             loading.value = false;
         });
@@ -332,7 +336,7 @@ function submitForm(e) {
                                     class="btn w-75 btn-primary rounded-pill px-4 py-2 border border-dark fw-semibold form-submit">
                                     <div class="lds-dual-ring"></div>
                                 </button>
-                                <button type="submit" v-else
+                                <button id="submit" type="submit" v-else
                                     class="btn w-75 btn-primary rounded-pill px-4 py-2 border border-dark fw-semibold form-submit">
                                     Rental
                                 </button>
