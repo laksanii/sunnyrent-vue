@@ -16,7 +16,9 @@ export const useAddressStore = defineStore({
   actions: {
     async fetchProvinces() {
       try {
-        const { data } = await axios.get("http://localhost:8000/api/provinces");
+        const { data } = await axios.get(
+          "https://sunnycos-rent.my.id/api/provinces"
+        );
         this.province = data;
       } catch (error) {
         this.province = false;
@@ -24,11 +26,14 @@ export const useAddressStore = defineStore({
     },
     async fetchCities(province) {
       try {
-        const { data } = await axios.get("http://localhost:8000/api/cities", {
-          params: {
-            province: province,
-          },
-        });
+        const { data } = await axios.get(
+          "https://sunnycos-rent.my.id/api/cities",
+          {
+            params: {
+              province: province,
+            },
+          }
+        );
         this.city = data;
       } catch (error) {
         this.city = false;

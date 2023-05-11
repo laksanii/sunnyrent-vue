@@ -185,7 +185,7 @@ async function citySelected(city) {
     total_payment.value = +total_payment.value - +ongkos_kirim.value;
     axios({
         method: "post",
-        url: "http://localhost:8000/api/cost",
+        url: "https://sunnycos-rent.my.id/api/cost",
         data: {
             destination: city.city_id,
             weight: costumeDetail.value.value.weight,
