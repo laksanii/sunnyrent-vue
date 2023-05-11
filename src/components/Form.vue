@@ -308,7 +308,8 @@ async function citySelected(city) {
                                     <div v-if="!ongkir_load">
                                         <input type="text" class="form-control" id="ongkir" name="shipping"
                                             :value="ongkos_kirim" readonly />
-                                        <small class="ps-2 text-danger">Ongkir bisa berbeda jika menggunakan Grab</small>
+                                        <small class="ps-2 text-danger">Ongkir bisa berbeda jika menggunakan Grab/Paxel
+                                            sameday</small>
                                     </div>
                                     <div v-else>
                                         <div class="lds-dual-ring"></div>
