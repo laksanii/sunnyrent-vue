@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onUpdated, computed } from "vue";
 import { useCostumeStore } from "@/stores/costume";
+import { useAddressStore } from "@/stores/address";
 import axios from "axios";
 import VueSelect from "vue-select";
 
@@ -14,6 +15,11 @@ const loading = ref(false);
 const costumeStore = useCostumeStore();
 const costumes = computed(() => costumeStore.getCostumes);
 const costumeList = computed(() => costumes.value.result);
+
+const addressStore = useAddressStore();
+const provinces = computed(() => addressStore.getProvinces);
+
+console.log(provinces.value.rajaongkir);
 
 async function onSelected(costume) {
     costume_id.value = costume.id;
