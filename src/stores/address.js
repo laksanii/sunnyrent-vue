@@ -16,18 +16,26 @@ export const useAddressStore = defineStore({
   actions: {
     async fetchProvinces() {
       try {
-        const { data } = await axios.get(
-          "https://api.rajaongkir.com/starter/province",
-          {
-            headers: {
-              key: "05fb707215b778a76401b6996bc53823",
-            },
-          }
-        );
+        const { data } = await axios.get("http://localhost:8000/api/provinces");
         this.province = data;
       } catch (error) {
         this.province = false;
       }
+    },
+    async fetchCities(province) {
+      try {
+        const { data } = await axios.get("http://localhost:8000/api/cities", {
+          params: {
+            province: province,
+          },
+        });
+        this.city = data;
+      } catch (error) {
+        this.city = false;
+      }
+    },
+    async cityLoad() {
+      this.city = false;
     },
   },
 });

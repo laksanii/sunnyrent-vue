@@ -18,8 +18,10 @@ const costumeList = computed(() => costumes.value.result);
 
 const addressStore = useAddressStore();
 const provinces = computed(() => addressStore.getProvinces);
+const provincesList = computed(() => provinces.value.result);
 
-console.log(provinces.value.rajaongkir);
+const cities = computed(() => addressStore.getCities);
+const citiesList = computed(() => cities.value.result);
 
 async function onSelected(costume) {
     costume_id.value = costume.id;
@@ -33,17 +35,23 @@ async function onSelected(costume) {
 
 onMounted(() => {
     costumeStore.fetchCostumes();
+    addressStore.fetchProvinces();
 });
 
 onUpdated(() => { });
 
 const costume_id = ref("");
+const province_id = ref("");
+const cities_id = ref("");
 const accessories = ref([]);
 const total_payment = ref(0);
 const error_msg = ref([]);
 const success_msg = ref(false);
 const available = ref(null);
 const error_check = ref(null);
+const ongkos_kirim = ref(0);
+const city_load = ref(false);
+const ongkir_load = ref(false);
 
 const preview = {
     KTP_pict: ref(false),
@@ -106,8 +114,6 @@ function costumeCheck(e) {
             //handle error
             error_check.value = "Terjadi kesalahan";
         });
-
-    axios;
 }
 
 function closePreview(e, id) {
@@ -165,6 +171,36 @@ function submitForm(e) {
             loading.value = false;
         });
 }
+
+async function provinceSelected(province) {
+    addressStore.cityLoad();
+    cities_id.value = '';
+    province_id.value = province.province_id;
+    addressStore.fetchCities(province.province_id);
+    // city_load.value = false;
+}
+
+async function citySelected(city) {
+    ongkir_load.value = true;
+    total_payment.value = +total_payment.value - +ongkos_kirim.value;
+    axios({
+        method: "post",
+        url: "http://localhost:8000/api/cost",
+        data: {
+            destination: city.city_id,
+            weight: costumeDetail.value.value.weight,
+        },
+    })
+        .then(function (response) {
+            //handle success
+            ongkos_kirim.value = response.data.result[0].value;
+            total_payment.value = +total_payment.value + +ongkos_kirim.value;
+            // ongkos_kirim.value = response.result.value;
+        }).finally(() => {
+            ongkir_load.value = false;
+        });
+}
+
 </script>
 
 <template>
@@ -172,6 +208,7 @@ function submitForm(e) {
         <section class="section form bg-page" id="form">
             <div class="container">
                 <h3 class="text-center mb-4">Form Rental</h3>
+                {{ provinces.value }}
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-12">
                         <form @submit.prevent="submitForm">
@@ -241,6 +278,40 @@ function submitForm(e) {
                                             type="checkbox" :id="value.id" v-model="accessories" :value="value.id"
                                             aria-label="Aksesories" name="accessories[]" />
                                         <label :for="value.id">{{ value.name }} ( {{ value.price }} )</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="costumeDetail">
+                                <div class="mb-3">
+                                    <label for="costume_id" class="form-label">Provinsi
+                                    </label>
+                                    <VueSelect v-if="provinces" v-model="province_id" :options="provincesList"
+                                        :clearable="false" :reduce="(province) => province.province_id"
+                                        @option:selected="(province) => provinceSelected(province)" label="province"
+                                        class="form-control p-0" placeholder="Pilih Provinsi">
+                                    </VueSelect>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="costume_id" class="form-label">Kota
+                                    </label>
+                                    <VueSelect v-if="cities && !city_load" v-model="cities_id" :options="citiesList"
+                                        :clearable="false" :reduce="(city) => city.city_id"
+                                        @option:selected="(city) => citySelected(city)" label="city_name"
+                                        class="form-control p-0" placeholder="Pilih Kota">
+                                    </VueSelect>
+                                    <div v-else>
+                                        <div class="lds-dual-ring"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="total_payment" class="form-label">Ongkos Kirim</label>
+                                    <div v-if="!ongkir_load">
+                                        <input type="text" class="form-control" id="ongkir" name="shipping"
+                                            :value="ongkos_kirim" readonly />
+                                        <small class="ps-2 text-danger">Ongkir bisa berbeda jika menggunakan Grab</small>
+                                    </div>
+                                    <div v-else>
+                                        <div class="lds-dual-ring"></div>
                                     </div>
                                 </div>
                             </div>
