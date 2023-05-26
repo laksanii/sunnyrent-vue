@@ -63,10 +63,11 @@ function submitForm(e) {
                                 <input type="text" class="form-control" name="code" id="code" required />
                             </div>
                             <div class="mb-3">
-                                <label for="confirm_pict" class="form-label">Foto Bukti Diterima (Kostum dan Aksesoris)
+                                <label for="confirm_pict" class="form-label mb-0">Foto Bukti Diterima (Kostum dan Aksesoris)
                                 </label>
-                                <input class="form-control" type="file" multiple id="confirm_pict" name="confirm_pict[]"
-                                    required />
+                                <p class="text-danger fs-6 mt-0">*Isi menggunakan link google drive</p>
+                                <input class="form-control" type="text" id="confirm_pict" name="confirm_pict"
+                                    placeholder="https://drive.google.com/drive/xxxx" required />
                             </div>
                             <div class="submit text-center mt-4">
                                 <button disabled v-if="loading"

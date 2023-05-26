@@ -1,5 +1,5 @@
 <script setup>
-import Modal from "@/components/Modal.vue"
+
 import Navbar from "@/components/Navbar.vue"
 import Hero from "@/components/Hero.vue"
 import Form from "@/components/Form.vue"
