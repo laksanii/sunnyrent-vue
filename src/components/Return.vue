@@ -19,7 +19,6 @@ function submitForm(e) {
     .then(function (response) {
       //handle success
       e.target.reset()
-      preview.value = false
       error_msg.value = false
       success_msg.value = 'Data pengembalian kostum berhasil dikirim'
       // formEl.scrollIntoView()
@@ -68,9 +67,11 @@ function submitForm(e) {
                 <input type="text" class="form-control" name="resi" id="resi" required />
               </div>
               <div class="mb-3">
-                <label for="return_pict" class="form-label">Foto Bukti Pengembalian Paket/Screenshoot
+                <label for="return_pict" class="form-label mb-0">Foto Bukti Pengembalian Paket/Screenshoot
                   Aplikasi</label>
-                <input class="form-control" type="file" id="return_pict" name="return_pict[]" required multiple />
+                <p class="text-danger fs-6 mt-0">*Isi menggunakan link google drive</p>
+                <input class="form-control" type="text" id="return_pict" name="return_pict" required
+                  placeholder="https://drive.google.com/drive/xxxx" />
               </div>
               <div class="submit text-center mt-4">
                 <button disabled v-if="loading"
